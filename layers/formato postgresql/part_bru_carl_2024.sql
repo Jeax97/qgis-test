@@ -1,0 +1,17 @@
+SET standard_conforming_strings = ON;
+DROP TABLE IF EXISTS "qwc_geodb"."part_bru_carl_2024" CASCADE;
+BEGIN;
+CREATE TABLE "qwc_geodb"."part_bru_carl_2024"();
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "ogc_fid" SERIAL CONSTRAINT "part_bru_carl_2024_pk" PRIMARY KEY;
+SELECT AddGeometryColumn('qwc_geodb','part_bru_carl_2024','wkb_geometry',4326,'MULTIPOLYGON',2);
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "fid" NUMERIC(20,0);
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "gml_id" VARCHAR;
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "lowercorner" VARCHAR(19);
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "uppercorner" VARCHAR(19);
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "inspireid_localid" VARCHAR(32);
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "inspireid_namespace" VARCHAR(11);
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "label" VARCHAR(9);
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "nationalcadastralreference" VARCHAR(21);
+ALTER TABLE "qwc_geodb"."part_bru_carl_2024" ADD COLUMN "administrativeunit" VARCHAR(4);
+CREATE INDEX "part_bru_carl_2024_wkb_geometry_geom_idx" ON "qwc_geodb"."part_bru_carl_2024" USING GIST ("wkb_geometry");
+COMMIT;
